@@ -54,6 +54,12 @@ namespace shared_model {
       boost::optional<ValidationError> validateAssetId(
           const interface::types::AssetIdType &asset_id) const;
 
+      boost::optional<ValidationError> validateCallee(
+          const interface::types::AccountIdType &callee) const;
+
+      boost::optional<ValidationError> validateBytecode(
+          const interface::types::SmartContractCodeType &input) const;
+
       boost::optional<ValidationError> validatePeer(
           const interface::Peer &peer) const;
 

@@ -102,6 +102,10 @@ namespace {
   const RegexValidator kAccountDetailKeyValidator{"DetailKey",
                                                   R"([A-Za-z0-9_]{1,64})"};
   const RegexValidator kRoleIdValidator{"RoleId", R"#([a-z_0-9]{1,32})#"};
+  const RegexValidator kHexValidator{
+    "Hex", 
+    R"#(([0-9a-fA-F])*)#",
+    "Hex encoded string expected"};
 }  // namespace
 
 namespace shared_model {
@@ -131,6 +135,25 @@ namespace shared_model {
     boost::optional<ValidationError> FieldValidator::validateAssetId(
         const interface::types::AssetIdType &asset_id) const {
       return kAssetIdValidator.validate(asset_id);
+    }
+
+    boost::optional<ValidationError> FieldValidator::validateCallee(
+        const interface::types::AccountIdType &callee) const {
+      // TODO(IvanTyulyandin): add callee validator
+      // this is mock for tests to be passed
+      // consider accountId validation method to call
+      if (callee.empty()) {
+        return ValidationError(
+          "EngineCall", {"Smart contract callee must be specified"});
+      }
+      return boost::none;
+    }
+
+    boost::optional<ValidationError> FieldValidator::validateBytecode(
+        const interface::types::SmartContractCodeType &input) const {
+      // TODO(IvanTyulyandin): add code validator
+      // this is mock for tests to be passed
+      return kHexValidator.validate(input);
     }
 
     boost::optional<ValidationError> FieldValidator::validatePeer(

@@ -28,6 +28,14 @@ namespace shared_model {
         return boost::none;
       }
       template <typename... Args>
+      boost::optional<ValidationError> validateCallee(Args...) const {
+        return boost::none;
+      }
+      template <typename... Args>
+      boost::optional<ValidationError> validateBytecode(Args...) const {
+        return boost::none;
+      }
+      template <typename... Args>
       boost::optional<ValidationError> validatePeer(Args...) const {
         return boost::none;
       }
