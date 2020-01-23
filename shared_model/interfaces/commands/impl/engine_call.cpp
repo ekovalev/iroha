@@ -1,3 +1,8 @@
+/**
+ * Copyright Soramitsu Co., Ltd. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #include "interfaces/commands/engine_call.hpp"
 
 namespace shared_model {
@@ -6,8 +11,8 @@ namespace shared_model {
     std::string EngineCall::toString() const {
       return detail::PrettyStringBuilder()
           .init("EngineCall")
-          .append("callee", callee())
-          .append("input", input())
+          .appendNamed("callee", callee())
+          .appendNamed("input", input())
           .finalize();
     }
 

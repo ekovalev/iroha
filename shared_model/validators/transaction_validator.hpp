@@ -8,10 +8,6 @@
 
 #include <boost/range/adaptor/indexed.hpp>
 #include <boost/variant.hpp>
-<<<<<<< HEAD
-
-=======
->>>>>>> Add account_id and message validation to ProtoCommandExecutor
 #include "common/bind.hpp"
 #include "interfaces/commands/add_asset_quantity.hpp"
 #include "interfaces/commands/add_peer.hpp"

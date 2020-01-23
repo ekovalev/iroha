@@ -47,7 +47,7 @@ Iroha_ProtoQueryResponse Iroha_ProtoSpecificQueryExecutorExecute(void *executor,
 
   if (auto answer = shared_model::validation::ProtoQueryValidator().validate(
           protocol_query)) {
-    return serialize(makeErrorResponse(200, answer.reason()));
+    return serialize(makeErrorResponse(200, answer.value().toString()));
   }
 
   shared_model::proto::Query proto_query(protocol_query);
@@ -59,7 +59,7 @@ Iroha_ProtoQueryResponse Iroha_ProtoSpecificQueryExecutorExecute(void *executor,
                   shared_model::validation::FieldValidator>>(
               std::make_shared<shared_model::validation::ValidatorsConfig>(0))
               .validate(proto_query)) {
-    return serialize(makeErrorResponse(300, answer.reason()));
+    return serialize(makeErrorResponse(300, answer.value().toString()));
   }
 
   auto response =
