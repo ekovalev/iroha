@@ -8,10 +8,7 @@
 
 #include <boost/range/adaptor/indexed.hpp>
 #include <boost/variant.hpp>
-<<<<<<< HEAD
-=======
 
->>>>>>> bbe22b5537196d70f6bd3103cdf49d9988d0d2cc
 #include "common/bind.hpp"
 #include "interfaces/commands/add_asset_quantity.hpp"
 #include "interfaces/commands/add_peer.hpp"

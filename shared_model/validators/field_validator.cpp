@@ -138,8 +138,7 @@ namespace shared_model {
       return kAssetIdValidator.validate(asset_id);
     }
 
-    void FieldValidator::validateCallee(
-        ReasonsGroupType &reason,
+    boost::optional<ValidationError> FieldValidator::validateCallee(
         const interface::types::AccountIdType &callee) const {
       // TODO(IvanTyulyandin): add callee validator
       // this is mock for tests to be passed
@@ -150,8 +149,7 @@ namespace shared_model {
       }
     }
 
-    void FieldValidator::validateBytecode(
-        ReasonsGroupType &reason,
+    boost::optional<ValidationError> FieldValidator::validateBytecode(
         const interface::types::SmartContractCodeType &input) const {
       // TODO(IvanTyulyandin): add code validator
       // this is mock for tests to be passed
@@ -345,21 +343,12 @@ namespace shared_model {
         auto sig_format_error = validateSignatureForm(signature.value());
         sig_error_creator |= sig_format_error;
 
-<<<<<<< HEAD
-        if (is_valid
-            && not shared_model::crypto::CryptoVerifier<>::verify(
-                sign, source, pkey)) {
-          reason.second.push_back((boost::format("Wrong signature [%s;%s]")
-                                   % sign.hex() % pkey.hex())
-                                      .str());
-=======
         if (not sig_format_error
             and not shared_model::crypto::CryptoVerifier<>::verify(
                     signature.value().signedData(),
                     source,
                     signature.value().publicKey())) {
           sig_error_creator.addReason("Crypto verification failed.");
->>>>>>> bbe22b5537196d70f6bd3103cdf49d9988d0d2cc
         }
         error_creator |= std::move(sig_error_creator)
                              .getValidationErrorWithGeneratedName([&] {
@@ -402,24 +391,6 @@ namespace shared_model {
       return boost::none;
     }
 
-<<<<<<< HEAD
-    void FieldValidator::validateHash(ReasonsGroupType &reason,
-                                      const std::string &hash) const {
-      if (hash.size() != kHashSize * 2) {
-        reason.second.push_back(
-            (boost::format("Hash has invalid size: %d") % hash.size()).str());
-      }
-      if (not std::regex_match(hash, hex_regex_)) {
-        reason.second.emplace_back("Hash must be a hex string");
-      }
-    }
-
-    void FieldValidator::validateHash(ReasonsGroupType &reason,
-                                      const crypto::Hash &hash) const {
-      if (hash.size() != kHashSize) {
-        reason.second.push_back(
-            (boost::format("Hash has invalid size: %d") % hash.size()).str());
-=======
     boost::optional<ValidationError> FieldValidator::validateHash(
         const crypto::Hash &hash) const {
       if (hash.size() != hash_size) {
@@ -427,7 +398,6 @@ namespace shared_model {
             "Hash",
             {fmt::format(
                 "Invalid size: {}, should be {}.", hash.size(), hash_size)});
->>>>>>> bbe22b5537196d70f6bd3103cdf49d9988d0d2cc
       }
       return boost::none;
     }
